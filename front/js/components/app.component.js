@@ -52,7 +52,7 @@
 
 
         function login() {
-            console.log(socket.emit('login', vm.user_model) {
+            console.log(socket.emit('login', vm.user_model));
             vm.user = angular.copy(vm.user_model);
             vm.user.index = 2;
         }
