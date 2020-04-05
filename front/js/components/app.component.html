@@ -5,8 +5,8 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="input-group">
-            <div class="" ng-if="vm.user">User: {{vm.user.name}}</div>
+        <div class="input-group" ng-if="vm.user">
+            <div class="">User: {{vm.user.name}}</div>
             <div class="input-group-append">
                 <button class="btn btn-sm btn-outline-danger" ng-click="vm.logout()">Logout</button>
             </div>
@@ -59,7 +59,7 @@
                         <div class="flex float-left">
                             <div class="card h-100">
                                 <div class="card-body">
-                                    <h2 class="card-title ketchup joueur text-left" ng-repeat="player in vm.gameData.ketchup_players">- {{player.name}}</h2>
+                                    <h2 class="card-title ketchup joueur text-left" ng-repeat="player in vm.gameData.players" ng-if="player.team == 'ketchup'">- {{player.name}}</h2>
 
                                 </div>
                             </div>
@@ -103,9 +103,7 @@
                         <div class="flex text-right">
                             <div class="card h-100">
                                 <div class="card-body text-right">
-                                    <h2 class="card-title mayo joueur text-right" ng-repeat="player in vm.gameData.mayo_players">- {{player.name}}</h2>
-
-
+                                    <h2 class="card-title mayo joueur text-right" ng-repeat="player in vm.gameData.players" ng-if="player.team == 'mayo'">- {{player.name}}</h2>
                                 </div>
                             </div>
                         </div>
@@ -117,7 +115,26 @@
             </div>
         </div>
         <!-- /.col-md-4 -->
-
+        <div class="col-12">
+            <div class="card h-100 text-right">
+                <div class="card-body text-light">
+                    <h2 class="card-title bg-dark equipe text-center ">MASTER</h2>
+                    <!-- joueur Mayo -->
+                    <div class="row float-right">
+                        <div class="flex text-right">
+                            <div class="card h-100">
+                                <div class="card-body text-right">
+                                    <h2 class="card-title mayo joueur text-right" ng-repeat="player in vm.gameData.players" ng-if="player.team == 'master'">- {{player.name}}</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="#" class="btn btn-mayo btn-sm">Buzzer</a>
+                </div>
+            </div>
+        </div>
     </div>
 
 

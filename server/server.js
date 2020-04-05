@@ -18,16 +18,11 @@ var gameData = {
     current_step_index: 0,
     steps: ['Les Nuggets', 'Le Sel ou Poivre', 'Les Menus', 'L\'addition'],
     teams: ['master', 'ketchup', 'mayo'],
-    master_player: null,
-    ketchup_players: [
-        // {
-        //     name: 'maxime'
-        // }
-    ],
-    mayo_players: [
-        // {
-        //     name: 'bite'
-        // }
+    players: [
+        {
+            name: '',
+            team: '',
+        }
     ]
 }
 // var http = require('http');
@@ -36,9 +31,7 @@ var gameData = {
 // 	console.log('user connected');
 // });
 // httpServer.listen(1337);
-var server = app.listen(8080, function () {
-  console.log('Example app listening on port 8080!')
-});
+var server = app.listen(8080, function () { console.log('listend: 8080'); });
 var io = require('socket.io').listen(server);
 var users = [];
 var user_model = {
@@ -49,9 +42,7 @@ var user_model = {
 var user = null;
 
 io.sockets.on('connection',function(socket){
-	console.log('new connection');
-	console.log(socket.id);
-
+	console.log('new:',socket.id);
     function updateGameData() {
         io.emit('updateGamedata', {gameData: gameData});
         //socket.broadcast.emit('updateGamedata', {gameData: gameData});
@@ -67,15 +58,9 @@ io.sockets.on('connection',function(socket){
         if (new_user.name != '' && new_user.team != '') {
             // Vefiry data integrity, feasibility
             // Just 1 master authorized
-            if (new_user.team == 'master' && !gameData.master_player) {
-                gameData.master_player = new_user;
-            }
-            // Infinite player in ketchup or mayo teams
-            if (new_user.team == 'ketchup') {
-                gameData.ketchup_players.push(new_user);
-            }
-            if (new_user.team == 'mayo') {
-                gameData.mayo_players.push(new_user);
+            if (gameData.teams.includes(new_user.team)) {
+                gameData.players.push(new_user);
+                users.push(new_user);
             }
         }
 
@@ -83,10 +68,16 @@ io.sockets.on('connection',function(socket){
         updateGameData();
 	});
 
-    	// socket.on('logout', function(user){
-    	// 	users.splice(user.index, 1);
-        //     updateGameData();
-    	// });
+	socket.on('logout', function(user){
+        console.log(user);
+        gameData.players.forEach(function(player_index, player) {
+            if (player.index == user.index) {
+                users.splice(user.index, 1);
+                gameData.players.splice(player_index)
+            }
+        });
+        updateGameData();
+	});
 
 
     socket.on('nextStep', function(){

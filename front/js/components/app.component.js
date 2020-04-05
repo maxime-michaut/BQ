@@ -56,9 +56,10 @@
             vm.user = angular.copy(vm.user_model);
             vm.user.index = 2;
         }
-
+        vm.logout = logout;
         function logout() {
             socket.emit('logout', vm.user);
+            vm.user = null;
         }
 
         function nextStep() {
