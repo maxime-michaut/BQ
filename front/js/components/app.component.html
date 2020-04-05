@@ -1,0 +1,155 @@
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">Maitre du jeux</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="input-group">
+            <div class="" ng-if="vm.user">User: {{vm.user.name}}</div>
+            <div class="input-group-append">
+                <button class="btn btn-sm btn-outline-danger" ng-click="vm.logout()">Logout</button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Page Content -->
+<div class="container-fluid">
+    <div class="col-md-12 mb-5" ng-if="!vm.user">
+        <div class="card h-100 text-right">
+            <div class="card-body">
+                <h2 class="card-title mayo equipe text-center">Connection</h2>
+                <div class="form-group">
+                    <label>Name:</label>
+                    <input type="name" ng-model="vm.user_model.name" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Team:</label>
+                    <select ng-model="vm.user_model.team" class="form-control">
+                        <option value="{{option}}" ng-repeat="option in vm.teams">{{option}}</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary" ng-click="vm.login()">Login</button>
+            </div>
+            <div class="card-footer text-center">
+                <a href="#" class="btn btn-mayo btn-sm">Buzzer</a>
+            </div>
+        </div>
+    </div>
+    <!-- Heading Row -->
+
+    <!-- /.row -->
+    <!-- <app-phase></app-phase> -->
+    <!-- Affichage de la phase de jeux en cours cacher les autres <P> -->
+    <div class="card text-white bg-white my-5 py-4 text-center">
+        <div class="card-body">
+            <p class="card-title bleu text-center equipe" ng-repeat="(step_index, step) in vm.gameData.steps" ng-if="step_index == vm.gameData.current_step_index">{{step}}</p>
+        </div>
+    </div>
+
+    <!-- Ketchup -->
+    <div class="row">
+        <div class="col-md-4 mb-5">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h2 class="card-title ketchup equipe">Ketchup</h2>
+                    <!-- joueur Ketchup -->
+                    <div class="row">
+                        <div class="flex float-left">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h2 class="card-title ketchup joueur text-left" ng-repeat="player in vm.gameData.ketchup_players">- {{player.name}}</h2>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="#" class="btn btn-danger blanc btn-sm">Buzzer</a>
+                </div>
+            </div>
+        </div>
+        <!-- /.col-md-4 -->
+        <div class="col-md-4 mb-5">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h2 class="card-title bleu text-center equipe">Score</h2>
+                    <div class="row float-center">
+                        <div class="col text-center card-title ketchup joueur score">
+                            12
+                        </div>
+                        <div class="col text-center">
+                            <div style="border-left:1px solid #000;height:100px;border-right:1px solid #000;height:100px" class="score">VS</div>
+                        </div>
+                        <div class="col text-center card-title mayo joueur score">
+                            15
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="card-footer"> -->
+
+                <!-- </div> -->
+            </div>
+        </div>
+        <!-- Mayo -->
+        <div class="col-md-4 mb-5">
+            <div class="card h-100 text-right">
+                <div class="card-body">
+                    <h2 class="card-title mayo equipe text-center">Mayo</h2>
+                    <!-- joueur Mayo -->
+                    <div class="row float-right">
+                        <div class="flex text-right">
+                            <div class="card h-100">
+                                <div class="card-body text-right">
+                                    <h2 class="card-title mayo joueur text-right" ng-repeat="player in vm.gameData.mayo_players">- {{player.name}}</h2>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="#" class="btn btn-mayo btn-sm">Buzzer</a>
+                </div>
+            </div>
+        </div>
+        <!-- /.col-md-4 -->
+
+    </div>
+
+
+
+
+    <!-- /.row -->
+
+</div>
+<!-- /.container -->
+
+<!-- commandes du maitre du jeu -->
+<footer class="py-5 bg-primary">
+    <!-- <admin-panel></admin-panel> -->
+    <div class="container">
+
+        <div class="row float-center">
+            <div class="col text-center ">
+                <a href="#" class="btn btn-danger blanc btn-sm">Bonne réponse</a><a href="#" class="btn btn-danger blanc btn-sm">Mauvaise réponse</a>
+            </div>
+            <div class="col text-center">
+                <a href="#" class="btn btn-success blanc margin-auto">Reset Buzzer</a>
+            </div>
+            <div class="col text-center">
+                <a href="#" class="btn btn-info blanc margin-auto" ng-click="vm.nextStep()">Phase suivante</a>
+            </div>
+
+            <div class="col text-center ">
+                &nbsp; <a href="#" class="btn btn-mayo btn-sm float-right">Bonne réponse</a><a href="#" class="btn btn-mayo blanc btn-sm float-right">Mauvaise réponse</a>&nbsp;
+
+            </div>
+        </div>
+
+    </div>
+    <!-- /.container -->
+</footer>
